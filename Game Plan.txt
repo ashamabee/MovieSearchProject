@@ -1,0 +1,27 @@
+A dashboard page with multiple charts that update from the same data
+Your project should include at least one JS library that we did not cover. -
+Your project must be powered by a data set with at least 100 records.
+Your project must include some level of user-driven interaction (e.g., menus, dropdowns, textboxes).
+Your final visualization should ideally include at least three views
+
+Data:
+https://www.kaggle.com/ruchi798/movies-on-netflix-prime-video-hulu-and-disney
+
+PRASHANT: Cleaning data
+
+USA only
+Get rid of disney plus IN CSV
+Dropna to see what's missing
+
+
+-cleaning data (Prashant)
+Research Topics
+-put it in a database - PGAdmin (Ashley)
+-flask app (Mohammed and Prashant)
+-html and bootstrap (Rachel)
+-Javascript, Plotly & Leaflet - (errybody)
+
+Visualizations
+Bar chart by genre shows which genres are more popular
+Top 5 popular directors
+Years vs. Genres
