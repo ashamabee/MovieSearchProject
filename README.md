@@ -1,5 +1,6 @@
 # MovieSearchProject
 MovieSearchProject
+Req's
 A dashboard page with multiple charts that update from the same data
 Your project should include at least one JS library that we did not cover. -
 Your project must be powered by a data set with at least 100 records.
@@ -28,3 +29,6 @@ Links to streaming services at the bottom of the pages
 Dropdown for streaming site, genre, release year,
 Using flask, we will call html and data
 * = maybe
+
+Link for making multiple filters
+https://stackoverflow.com/questions/31831651/javascript-filter-array-multiple-conditions
