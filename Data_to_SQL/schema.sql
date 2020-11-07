@@ -1,4 +1,4 @@
-CREATE TABLE netflix_stream (
+CREATE TABLE movie_search_project (
 	index INT,
   	id INT PRIMARY KEY,
   	title TEXT,
@@ -16,4 +16,8 @@ CREATE TABLE netflix_stream (
 		
 );
 
-SELECT * FROM netflix_stream;
+SELECT * FROM movie_search_project;
+
+-- Deleted movies that only disny+ had
+DELETE FROM movie_search_project
+WHERE (netflix = false AND hulu = false AND prime_video = false);

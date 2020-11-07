@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 # create engine
-connection_string = "admin1:12345@localhost:5432/Project#2"
+connection_string = "mario:12345@localhost:5432/movie_search_project"
 engine = create_engine(f'postgresql://{connection_string}')
 connection = engine.connect()
 
@@ -27,7 +27,7 @@ def ReturnHome():
 
 @app.route("/movies")
 def movies():
-    movies = pd.read_sql("select * from netflix_stream", connection)
+    movies = pd.read_sql("select * from movie_search_project order by rotten_tomatoes desc", connection)
 
     return movies.to_json()
 
