@@ -39,11 +39,11 @@ var trace =[barData]
 Plotly.newPlot("bar", trace, layout)
 
 var bubbleData = {
-    y:runTimes.slice(0,100),
-    x:titles.slice(0,100),
+    y:runTimes.slice(0,10),
+    x:titles.slice(0,10),
     marker:{
-    size:review_rotten.slice(0,100),
-    color:runTimes.slice(0,100)
+    size:review_rotten.slice(0,10),
+    color:runTimes.slice(0,10)
     },
     mode:"markers"
    
