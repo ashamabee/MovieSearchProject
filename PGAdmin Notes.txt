@@ -1,0 +1,149 @@
+Open PGAdmin (already should be installed in our computers)
+Right-click on the server, go to create, then databse...
+Click on your new database to connect it to the server
+Right-click your database and select Query Tool... (Code editor)
+type:
+CREATE TABLE people (
+  name VARCHAR(30) NOT NULL,
+  has_pet BOOLEAN DEFAULT false,
+  pet_type VARCHAR(10) NOT NULL,
+  pet_name VARCHAR(30),
+  pet_age INT
+);
+
+SELECT * FROM <table name>;
+
+-- Delete the table "people"
+DROP TABLE people;
+
+-- Re-create the table "people" within animals_db
+CREATE TABLE people (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(30) NOT NULL,
+  has_pet BOOLEAN DEFAULT false,
+  pet_type VARCHAR(10) NOT NULL,
+  pet_name VARCHAR(30),
+  pet_age INT
+);
+
+-- Insert data into the table
+INSERT INTO people (name, has_pet, pet_type, pet_name, pet_age)
+VALUES ('Jacob', true, 'dog', 'Misty', 10),
+  ('Ahmed', true, 'rock', 'Rockington', 100),
+  ('Ahmed', true, 'rock', 'Rockington', 100),
+  ('Peter', true, 'cat', 'Franklin', 2),
+  ('Dave', true, 'dog', 'Queso', 1),
+  ('Dave', true, 'dog', 'Pringles', 7);
+
+-- Query all fields from the table
+SELECT *
+FROM people;
+
+-- Query the data to return all the rows containing the name "Dave"
+SELECT id, name, pet_name, pet_age
+FROM people
+WHERE name = 'Dave';
+
+-- Update a single row to change the `pet_name` and `pet_age` column data
+UPDATE people
+SET has_pet = true, pet_name = 'Rocket', pet_age = 8
+WHERE id = 6;
+
+SELECT *
+FROM people;
+
+-- Delete the duplicate entry using a unique id
+DELETE FROM people
+WHERE id = 3;
+
+SELECT *
+FROM people;
+
+
+-- Import Data:
+-- Lesson plan slide #31-32
+Import data.
+Right-click Miscellaneous_DB from the left-hand menu and select Refresh.
+Scroll down to Schemas and expand that menu, and then expand the Tables menu.
+Right-click the new table and select Import/Export from the menu.
+In the Options tab, complete the following steps:
+Slide the Import/Export tab to Import
+Click on the dot menu to navigate to the birdsong.csv file on your computer
+Slide the Header tab to Yes.
+Select the comma from the drop-down menu to set it as the Delimiter.
+Leave the other fields as they are, and then click OK.
+
+-- IMPORTING DATA
+
+-- Drop table if exists
+DROP TABLE wordassociation;
+
+-- Create table and view column datatypes
+CREATE TABLE wordassociation (
+	author INT,
+	word1 VARCHAR,
+	word2 VARCHAR,
+	source VARCHAR
+);
+
+SELECT *
+FROM wordassociation;
+
+-- Collect all rows with the word "stone" in the "word1" column
+SELECT *
+FROM wordassociation
+WHERE word1 = 'stone';
+
+-- Collect all rows where the author is within the 0-10 range
+SELECT *
+FROM wordassociation
+WHERE
+	author >= 1
+	AND author <= 10;
+
+-- Search for the word "pie" in both "word1" and "word2" columns
+SELECT *
+FROM wordassociation
+WHERE
+	word1 = 'pie'
+	OR word2 = 'pie';
+
+-- BONUS
+-- Select all rows with a source of "BC"
+SELECT *
+FROM wordassociation
+WHERE source = "BC";
+
+-- Collect all rows where the author is within the 333-335 range and has a source of "BC"
+SELECT *
+FROM wordassociation
+WHERE
+	SOURCE = 'BC'
+	AND author >= 333
+	AND author <= 335;
+
+
+
+-- Drop table if exists
+DROP TABLE IF EXISTS firepower;
+
+-- Create new table to import data
+CREATE TABLE firepower (
+	country VARCHAR,
+	ISO3 VARCHAR,
+	rank INT,
+	TotalPopulation INT,
+	ManpowerAvailable INT,
+	TotalMilitaryPersonnel INT,
+	ActivePersonnel INT,
+	ReservePersonnel INT,
+	TotalAircraftStrength INT,
+	FighterAircraft INT,
+	AttackAircraft INT,
+	TotalHelicopterStrength INT,
+	AttackHelicopters INT
+);
+
+-- Import data from GlobalFirePower.csv
+-- View the table to ensure all data has been imported correctly
+SELECT * FROM firepower;
