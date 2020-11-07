@@ -1,5 +1,4 @@
 CREATE TABLE movie_search_project (
-	index INT,
   	id INT PRIMARY KEY,
   	title TEXT,
   	year INT,

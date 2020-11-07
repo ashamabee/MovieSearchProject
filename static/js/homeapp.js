@@ -57,4 +57,3 @@ var bubbleTrace =[bubbleData]
 Plotly.newPlot("bubble", bubbleTrace, bubbleLayout)
 
 })
-
