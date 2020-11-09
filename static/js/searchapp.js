@@ -1,37 +1,70 @@
-console.log("Testing")
 
-d3.json("http://127.0.0.1:5000/movies").then(function(data){
-    console.log(data)
 
+d3.json("http://127.0.0.1:5000/movies2").then(function(data){
+    // console.log(data)
 
     function makeResponsive() {
+        // hard-coded filters for testing purposes - all working except for streaming platform
         var filters = {
-            platformFilter: 'Netflix',
-            genreFilter: 'Comedy'
-            // ageFilter: '16+'
+            // netflix: 'true',
+            genres: 'Comedy',
+            age: '16+'
             // movieFilter: ''
         };
-        // go through each key one at a time
-        // for every positions that changes add a new movie record and store it into a list
-
-        allMovies = Object.values(data).filter(function(item) {
-            console.log(item)
+        // creates list: filteredMovies based on the above filters
+        filteredMovies = Object.values(data).filter(function(item) {
+            // console.log(item)
             for (var key in filters) {
-            if (item[key] === undefined || item[key] != filter[key])
+            if (item[key] === undefined || item[key] != filters[key])
                 return false;
             }
             return true;
         });
+    
+        console.log(filteredMovies)
+        // filteredMovies.forEach(item => console.log(item));
 
-        data.forEach(item => console.log(item));
-
-        console.log(allMovies),
-        console.log('hi')
-        // console.log(allMovies)
     }
     makeResponsive();
-})
+});
 
-// 4 events
+function AllData(userinput){
+    d3.json("http://127.0.0.1:5000/movies2").then(function(data){
+        var movieList = data.filter(function(x){
+            console.log(x);
+            return x == userinput;
+        });
+        
+        var currentrow = movieList[0];
 
-// movie.filter().filter
+        var demobox = d3.select("#selMovie");
+        demobox.html("");
+        Object.entries(currentrow).forEach(function([x, y]){
+            return demobox.append("h4").text(`${x}: ${y}`);
+        });       
+    }); 
+};
+function init() {
+    var selector = d3.select("#selMovie");
+    d3.json("http://127.0.0.1:5000/movies2").then(function(data){
+        // console.log(data.title);
+        
+        // var movieNames = data.title;
+        Object.entries(data).forEach(function(userChoice){
+            selector
+            .append("option")
+            .text(userChoice)
+            .property("value", userChoice);
+        });
+    var beginning = data[0];
+    AllData(beginning);
+    });
+};
+
+// make movie dropdown first
+// init, alldata, optionChanged
+function optionChanged(movieChosen){
+    AllData(movieChosen);
+}
+
+init();
