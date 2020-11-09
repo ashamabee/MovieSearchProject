@@ -31,13 +31,17 @@ d3.json("http://127.0.0.1:5000/movies2").then(function(data){
 function AllData(userinput){
     d3.json("http://127.0.0.1:5000/movies2").then(function(data){
         var movieList = data.filter(function(x){
-            console.log(x);
-            return x == userinput;
+            // console.log(x);
+            return x.title == userinput;
         });
-        
+        console.log(movieList)
+        console.log("that was movieList");
+        // console.log(data);
+        // console.log("That was data");
         var currentrow = movieList[0];
-
-        var demobox = d3.select("#selMovie");
+        console.log(currentrow);
+        console.log("that was current row");
+        var demobox = d3.select("#sample-metadata");
         demobox.html("");
         Object.entries(currentrow).forEach(function([x, y]){
             return demobox.append("h4").text(`${x}: ${y}`);
@@ -57,13 +61,15 @@ function init() {
             .property("value", userChoice);
         });
     var beginning = data[0];
-    AllData(beginning);
+    console.log(beginning);
+    console.log("that was beginning");
+    AllData(beginning.title);
     });
 };
 
 // make movie dropdown first
 // init, alldata, optionChanged
-function optionChanged(movieChosen){
+function optionMovieChanged(movieChosen){
     AllData(movieChosen);
 }
 
