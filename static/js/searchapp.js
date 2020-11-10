@@ -1,9 +1,9 @@
 
 
-d3.json("http://127.0.0.1:5000/movies2").then(function(data){
+d3.json("/movies2").then(function(data){
     // console.log(data)
 
-    function makeResponsive() {
+    function filterMovies() {
         // hard-coded filters for testing purposes - all working except for streaming platform
         var filters = {
             // netflix: 'true',
@@ -25,29 +25,30 @@ d3.json("http://127.0.0.1:5000/movies2").then(function(data){
         // filteredMovies.forEach(item => console.log(item));
 
     }
-    makeResponsive();
+    filterMovies();
 });
 
-function AllData(userinput){
+function ChosenData(userinput){
     d3.json("http://127.0.0.1:5000/movies2").then(function(data){
-        var movieList = data.filter(function(x){
+        var selectMovie = data.filter(function(x){
             // console.log(x);
             return x.title == userinput;
         });
-        console.log(movieList)
-        console.log("that was movieList");
-        // console.log(data);
-        // console.log("That was data");
-        var currentrow = movieList[0];
-        console.log(currentrow);
-        console.log("that was current row");
+        console.log(selectMovie);
+        console.log("that was selectMovie");
+        console.log(data);
+        console.log("That was data");
+        var currentObject = selectMovie[0];
+        console.log(currentObject);
+        console.log("that was currentObject");
         var demobox = d3.select("#sample-metadata");
         demobox.html("");
-        Object.entries(currentrow).forEach(function([x, y]){
+        Object.entries(currentObject).forEach(function([x, y]){
             return demobox.append("h4").text(`${x}: ${y}`);
         });       
     }); 
 };
+// Activate dropdown menu choices
 function init() {
     var selector = d3.select("#selMovie");
     d3.json("http://127.0.0.1:5000/movies2").then(function(data){
@@ -55,22 +56,21 @@ function init() {
         
         // var movieNames = data.title;
         Object.entries(data).forEach(function(userChoice){
+            var titlesList = userChoice[1].title
             selector
             .append("option")
-            .text(userChoice)
-            .property("value", userChoice);
+            .text(titlesList)
+            .property("value", titlesList);
         });
     var beginning = data[0];
     console.log(beginning);
     console.log("that was beginning");
-    AllData(beginning.title);
+    ChosenData(beginning.title);
     });
 };
 
-// make movie dropdown first
-// init, alldata, optionChanged
 function optionMovieChanged(movieChosen){
-    AllData(movieChosen);
+    ChosenData(movieChosen);
 }
 
 init();
