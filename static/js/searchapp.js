@@ -1,5 +1,3 @@
-
-
 d3.json("/movies2").then(function(data){
     // console.log(data)
 
@@ -28,49 +26,87 @@ d3.json("/movies2").then(function(data){
     filterMovies();
 });
 
-function ChosenData(userinput){
-    d3.json("http://127.0.0.1:5000/movies2").then(function(data){
+// MOVIE CHOICE DROPDOWN
+function movieChosenData(userinput){
+    d3.json("/movies2").then(function(data){
         var selectMovie = data.filter(function(x){
             // console.log(x);
             return x.title == userinput;
         });
-        console.log(selectMovie);
-        console.log("that was selectMovie");
-        console.log(data);
-        console.log("That was data");
         var currentObject = selectMovie[0];
-        console.log(currentObject);
-        console.log("that was currentObject");
         var demobox = d3.select("#sample-metadata");
         demobox.html("");
         Object.entries(currentObject).forEach(function([x, y]){
             return demobox.append("h4").text(`${x}: ${y}`);
-        });       
+        });
     }); 
 };
-// Activate dropdown menu choices
+function genreChosenData(userinput){
+    d3.json("/movies2").then(function(data){
+        var selectGenre = data.filter(function(x){
+            // console.log(x);
+            return x.genres == userinput;
+        });
+        console.log(selectGenre)
+        // var currentObject = selectGenre[0];
+        // var demobox = d3.select("#sample-metadata");
+        // demobox.html("");
+        // Object.entries(currentObject).forEach(function([x, y]){
+        //     return demobox.append("h4").text(`${x}: ${y}`);
+        // });
+    }); 
+};
+
+// ACTIVATE DROPDOWN MENU CHOICES
 function init() {
-    var selector = d3.select("#selMovie");
-    d3.json("http://127.0.0.1:5000/movies2").then(function(data){
-        // console.log(data.title);
-        
-        // var movieNames = data.title;
+    var genreSelector = d3.select("#selGenre");
+    d3.json("/movies2").then(function(data){
+        // const gList = Object.values(data.genres);
+        // console.log(gList);
         Object.entries(data).forEach(function(userChoice){
-            var titlesList = userChoice[1].title
-            selector
+            // var genreList = userChoice[1].genres;
+            // console.log(genreList);
+            // var uniqueGenres = Array.from(new Set(genreList));
+            // console.log(uniqueGenres);
+            // genreSelector
+            // .append("option")
+            // .text(uniqueGenres)
+            // .property("value", uniqueGenres);
+            // return genreList;
+            // console.log(userChoice)
+            var genreList = userChoice[1].genres;
+            // console.log(typeof(genreList));
+            genreSelector
+            .append("option")
+            .text(genreList)
+            .property("value", genreList);
+            // console.log(genreList);
+        });
+    var beginning = data[0];
+    genreChosenData(beginning.genres);
+    });
+
+    var movieSelector = d3.select("#selMovie");
+    d3.json("/movies2").then(function(data){
+        
+        Object.entries(data).forEach(function(userChoice){
+            var titlesList = userChoice[1].title;
+            movieSelector
             .append("option")
             .text(titlesList)
             .property("value", titlesList);
         });
     var beginning = data[0];
-    console.log(beginning);
-    console.log("that was beginning");
-    ChosenData(beginning.title);
+    // console.log(beginning);
+    // console.log("that was beginning");
+    movieChosenData(beginning.title);
     });
 };
-
 function optionMovieChanged(movieChosen){
-    ChosenData(movieChosen);
+    movieChosenData(movieChosen);
+}
+function optionGenreChanged(genreChosen){
+    genreChosenData(genreChosen);
 }
 
 init();
