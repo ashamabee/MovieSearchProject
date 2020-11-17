@@ -2,3 +2,67 @@
 /* #search_button {
     color: red;
 } */
+
+/* 
+#description-image {
+    float: left;
+    padding: 10px;
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    margin-right: 20px;
+    
+}
+
+.image-nav {
+    width: 140px;
+    height: 140px;
+   
+} */
+/* 
+.banner{
+    width: 100%;
+    display: "block"
+}
+.banner > a > .image_banner{
+    width: 100%;
+    display: "block";
+    height: 355px
+}
+
+<style>
+body {
+  background-color: lightblue;
+}
+</style> */
+
+.banner{
+    width: 100%;
+    display: "block"
+}
+
+.banner > .image_banner{
+    width: 100%;
+    display: "block";
+    height: 200px
+}
+
+p {
+    color: rgb(151, 64, 64);
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+#BarSummary {
+    color: green;
+    font-size: 18px;
+    margin-left: 350px;
+    font-weight: "strong";
+}
+
+#PieSummary {
+    margin-left: 450px;
+    color: red;
+    font-weight: "strong";
+    font-size: 18px
+}
