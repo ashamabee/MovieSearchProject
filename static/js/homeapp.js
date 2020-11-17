@@ -1,60 +1,127 @@
-console.log("Testing")
 
-d3.json("/movies").then(function(data){
+d3.json("/movies_score").then(function(data){
     console.log(data)
     title = data["title"]
-   
     titles = []
     Object.entries (title).forEach(([key,value])=>{
         titles.push(value)
     })
     console.log(titles)
-
-    runtime = data["runtime"]
-    runTimes = []
-    Object.entries (runtime).forEach(([key,value])=>{
-        runTimes.push(value)
+    imdb = data["imdb"]
+    imdb_review = []
+    Object.entries (imdb).forEach(([key,value])=>{
+        imdb_review.push(value)
     })
-    console.log(runTimes)
-
+    console.log(imdb_review)
     rotten_tm = data["rotten_tomatoes"]
-    // title = title.map(obj=>obj.)
     review_rotten = []
-    Object.entries (rotten_tm).forEach(([key,value])=>{
-        review_rotten.push(value)
+    Object.entries (rotten_tm).forEach(([key,value])=>{ 
+        review_rotten.push(value/10)
     })
     console.log(review_rotten)
-var barData = {
-    y:runTimes.slice(0,10),
+
+    score_value = data["score"]
+    score = []
+    Object.entries (score_value).forEach(([key,value])=>{
+        score.push(value)
+    })
+    console.log(score)
+
+    run_time = data["runtime"]
+    run = []
+    Object.entries (run_time).forEach(([key,value])=>{
+        run.push(value)
+    })
+    console.log(run)
+
+  // Bar chart rotten_tomatoes vs IMDB vs ave score
+var trace1 = {
+    y:imdb_review.slice(0,10),
     x:titles.slice(0,10),
-    type:"bar", 
-    orientaton: "h"
+    type:"bar",
+    orientaton: "h",
+    name: "IMDB"
 }
+var trace2 = {
+    y:review_rotten.slice(0,10),
+    x:titles.slice(0,10),
+    type:"bar",
+    orientaton: "h",
+    name: "Rotten Tomatoes"
+}
+var trace3 = {
+    y:score.slice(0,10),
+    x:titles.slice(0,10),
+    type:"bar",
+    orientaton: "h",
+    name: "Ave Rating"
+}
+
 var layout ={
-width: 500, 
-height: 500
+width: 700,
+height: 500,
+barmode: "group",
+title: "Movie Ratings",
+xaxis: {
+    title: "Top Ten Movies by Ave Score",
+    automargin: true,
+    tickangle: 45
+    },
+yaxis: {
+    title: "Rating",
+    automargin: true,
+    }
 }
+var barData =[trace3, trace1, trace2]
+Plotly.newPlot("bar", barData, layout)
 
-var trace =[barData]
-Plotly.newPlot("bar", trace, layout)
-
+// Bubble chart running time vs score
+var running = run.map(r=> r/3)
 var bubbleData = {
-    y:runTimes.slice(0,10),
-    x:titles.slice(0,10),
+    y:score.slice(0,50),
+    x:run.slice(0,50),
+    text: titles.slice(0,50),
     marker:{
-    size:review_rotten.slice(0,10),
-    color:runTimes.slice(0,10)
+    size:running.slice(0,50),
+    color:score.slice(0,50)
     },
     mode:"markers"
-   
 }
 var bubbleLayout ={
-width: 500, 
-height: 500
+title:"Score By Running Time",
+width: 800,
+height: 500,
+xaxis:{title: "Running Time"},
+yaxis:{title:"Score"}
 }
-
 var bubbleTrace =[bubbleData]
-Plotly.newPlot("bubble", bubbleTrace, bubbleLayout)
+Plotly.newPlot("bubble", bubbleTrace, bubbleLayout);
 
 })
 
+// Pie chart 10 genres and their overall ave
+d3.json("/movies_genere").then(function(data){
+    console.log(data)
+
+    genres = []
+    Object.entries (data["genres"]).forEach(([key,value])=>{
+        genres.push(value)
+    })
+    counts = []
+    Object.entries (data["average"]).forEach(([key,value])=>{
+        counts.push(value)
+    })
+
+var pieData = [{
+    values: counts,
+    labels: genres,
+    type: 'pie'
+  }];
+  
+  var pielayout = {
+    title: "Genres",
+    height: 400,
+    width: 500
+  };
+  Plotly.newPlot('pie', pieData, pielayout)
+})
