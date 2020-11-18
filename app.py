@@ -34,9 +34,9 @@ def movies_score():
     movies = pd.read_sql("select age, runtime, title, imdb, rotten_tomatoes,((imdb+(rotten_tomatoes/10))/2) as score from movie_search_project order by score desc", connection)
     return movies.to_json()
 # Creat new rout for genres
-@app.route("/movies_genere")
+@app.route("/movies_genre")
 def movies_genere():
-    movies = pd.read_sql("select genres, count(genres) as average from movie_search_project group by genres", connection)
+    movies = pd.read_sql("select genres, count(genres) as count from movie_search_project group by genres", connection)
     return movies.to_json()
 
 

@@ -1,4 +1,11 @@
 
+// Jquery button alert message
+$(document).ready(function(){
+    $("button").click(function(){
+        alert("Sending you to our awesome movie search page");
+     });
+});
+
 d3.json("/movies_score").then(function(data){
     console.log(data)
     title = data["title"]
@@ -58,8 +65,9 @@ var trace3 = {
 }
 
 var layout ={
-width: 700,
-height: 500,
+// width: 700,
+// height: 500,
+
 barmode: "group",
 title: "Movie Ratings",
 xaxis: {
@@ -88,11 +96,12 @@ var bubbleData = {
     mode:"markers"
 }
 var bubbleLayout ={
-title:"Score By Running Time",
-width: 800,
-height: 500,
+title:"Running Time Vs. Avg Score",
+automargin:true,
+// width: 800,
+// height: 500,
 xaxis:{title: "Running Time"},
-yaxis:{title:"Score"}
+yaxis:{title:"Average Score"}
 }
 var bubbleTrace =[bubbleData]
 Plotly.newPlot("bubble", bubbleTrace, bubbleLayout);
@@ -100,7 +109,7 @@ Plotly.newPlot("bubble", bubbleTrace, bubbleLayout);
 })
 
 // Pie chart 10 genres and their overall ave
-d3.json("/movies_genere").then(function(data){
+d3.json("/movies_genre").then(function(data){
     console.log(data)
 
     genres = []
@@ -108,7 +117,7 @@ d3.json("/movies_genere").then(function(data){
         genres.push(value)
     })
     counts = []
-    Object.entries (data["average"]).forEach(([key,value])=>{
+    Object.entries (data["count"]).forEach(([key,value])=>{
         counts.push(value)
     })
 
@@ -120,8 +129,9 @@ var pieData = [{
   
   var pielayout = {
     title: "Genres",
-    height: 400,
-    width: 500
+    automargin: true,
+    // height: 400,
+    // width: 500
   };
   Plotly.newPlot('pie', pieData, pielayout)
 })

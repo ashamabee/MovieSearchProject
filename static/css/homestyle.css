@@ -3,12 +3,14 @@
     color: red;
 } */
 
-banner{
+.banner{
     width: 100%;
     display: "block"
 }
-.banner > .image_banner{
+.banner > a > .image_banner{
     width: 100%;
     display: "block";
-    height: 355px
+    height: 450px;
+    border: 10px solid green;
+    
 }
