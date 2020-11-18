@@ -19,7 +19,7 @@ Cleaning data:
 -Get rid of plus sign in age
 -Get rid of percentage sign and
 
-Research Topics
+Research Topics:
 -put it in a database - PGAdmin
 -flask app
 -html and bootstrap
